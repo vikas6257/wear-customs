@@ -1,0 +1,8 @@
+<section>
+  <mat-accordion *ngIf="userAuthenticated() else notAuthUser">
+    <span>You are authenticated</span>
+  </mat-accordion>
+  <ng-template #notAuthUser>
+    <p><mat-icon>help_outline</mat-icon> Please login to write a post.</p>
+  </ng-template>
+</section>

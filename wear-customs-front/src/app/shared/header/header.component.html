@@ -1,0 +1,38 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    <a href="./">
+      <button mat-icon-button>
+        <mat-icon>home</mat-icon>
+      </button>
+    </a>
+
+    <button mat-button color="primary">Men</button>
+    <button mat-button color="primary">Women</button>
+    <button mat-button color="primary">Kids</button>
+
+    <span class="spacer"></span>
+    <div *ngIf="auth.afAuth.authState | async as user; else showLogin">
+      <span>Hello {{user.displayName}}!</span>
+    </div>
+    <ng-template #showLogin>
+      <button mat-button (click)="auth.login()">
+        <span>Login with Google</span>
+      </button>
+    </ng-template>
+
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="auth.logout()" *ngIf="auth.afAuth.authState | async">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </button>
+
+      <button mat-menu-item (click)="contactAlert()">
+        <mat-icon>contact_support</mat-icon>
+        <span>Contact</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar-row>
+</mat-toolbar>

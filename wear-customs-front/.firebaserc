@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "luggage-store": {
+      "hosting": {
+        "wear-customs-front": [
+          "luggage-store"
+        ]
+      }
+    }
+  }
+}
