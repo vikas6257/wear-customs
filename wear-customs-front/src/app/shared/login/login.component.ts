@@ -2,16 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import firebase from "firebase/app";
 import { WindowService } from "../../core/window.service";
 import { SharedModule } from "../shared.module";
+import {FormControl, Validators} from '@angular/forms';
 
-export class PhoneNumber {
-  contury: string;
-  number: string;
-
-  get e164() {
-    const num = this.contury + this.number;
-    return `+${num}`
-  }
-}
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,9 +12,12 @@ export class PhoneNumber {
 export class LoginComponent implements OnInit {
 
   windowRef: any;
-  phoneNumber = new PhoneNumber()
+  phoneNumber = new FormControl('', [Validators.required,
+                                     Validators.minLength(10),
+                                     Validators.maxLength(10)]);
   verificationCode: string;
   user: string
+
 
   constructor(private win: WindowService) { }
 
@@ -34,7 +29,7 @@ export class LoginComponent implements OnInit {
 
   sendOneTimePass() {
     const appVerifier = this.windowRef.recaptchaVerifier;
-    const num = this.phoneNumber.e164;
+    const num = this.phoneNumber.value;
     firebase.auth().signInWithPhoneNumber(num, appVerifier).then(result => {
       this.windowRef.confirmationResult = result;
     }).catch (error => console.log(error));

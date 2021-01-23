@@ -1,15 +1,14 @@
 <section id="Login_section" class="Login_section">
   <div class="" [hidden]="user">
-    <h1>Sign In with Yout Phone Number</h1>
-    <mat-divider></mat-divider>
-    <label for="phone">Phone Number </label>
-    <span>+91 </span>
-    <input type="text" [(ngModel)]="phoneNumber.number" class="input" placeholder="9876543210" maxlength="2">
-    <mat-divider></mat-divider>
+    <h1>Sign In</h1>
+    <mat-form-field appearance="outline">
+      <mat-label>Phone number</mat-label>
+      <span matPrefix>+91 &nbsp;</span>
+      <input type="tel" matInput placeholder="555-555-1234" [formControl]="phoneNumber" required>
+      <mat-icon matSuffix>phone</mat-icon>
+    </mat-form-field>
     <div class="" id="captchaDiv"></div>
-    <mat-divider></mat-divider>
-    <button mat-raised-button (click)=sendOneTimePass()>Send OTP</button>
-    <mat-divider></mat-divider>
+    <button mat-raised-button (click)=sendOneTimePass() [disabled]="!phoneNumber.valid">Send OTP</button>
     <div class="" *ngIf="windowRef.confirmationResult">
       <label for="code">Enter your OTP</label>
       <input type="text" name="code" class="input" [(ngModel)]="verificationCode" value="">
