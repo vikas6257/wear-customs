@@ -8,6 +8,8 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatCardModule} from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatTabsModule,
     MatCheckboxModule,
     MatCardModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDialogModule,
+    MatFormFieldModule
   ]
 })
 export class MaterialModule { }

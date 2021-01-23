@@ -15,8 +15,8 @@
       <span>Hello {{user.displayName}}!</span>
     </div>
     <ng-template #showLogin>
-      <button mat-button (click)="auth.login()">
-        <span>Login with Google</span>
+      <button mat-button (click)="openLoginDialog()">
+        <mat-icon>login</mat-icon>
       </button>
     </ng-template>
 

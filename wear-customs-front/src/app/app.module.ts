@@ -27,6 +27,7 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
+    // FormsModule,
     RouterModule.forRoot(routes),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireStorageModule,
