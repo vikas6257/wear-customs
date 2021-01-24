@@ -7,11 +7,21 @@
       <input type="tel" matInput placeholder="555-555-1234" [formControl]="phoneNumber" required>
       <mat-icon matSuffix>phone</mat-icon>
     </mat-form-field>
-    <div class="" id="captchaDiv"></div>
-    <button mat-raised-button (click)=sendOneTimePass() [disabled]="!phoneNumber.valid">Send OTP</button>
+    <div class="" id="captchaDiv" required></div>
+    <button class="LoginButton" mat-raised-button (click)=sendOneTimePass()
+            [disabled]="!phoneNumber.valid || !captchaVerified"
+    >Send OTP</button>
     <div class="" *ngIf="windowRef.confirmationResult">
-      <label for="code">Enter your OTP</label>
-      <input type="text" name="code" class="input" [(ngModel)]="verificationCode" value="">
+      <mat-divider></mat-divider>
+      <h2>Enter your OTP</h2>
+      <mat-form-field appearance="outline">
+        <mat-label>OTP</mat-label>
+        <mat-icon matPrefix>lock</mat-icon>
+        <input type="text" matInput required [(ngModel)]="verificationCode">
+      </mat-form-field>
+      <button class="authButton" mat-raised-button (click)=verifyOneTimePass()
+        [disabled]="!phoneNumber.valid || !captchaVerified || !verificationCode"
+      >Authenticate</button>
     </div>
   </div>
 </section>

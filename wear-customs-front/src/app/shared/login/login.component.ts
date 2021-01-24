@@ -17,19 +17,25 @@ export class LoginComponent implements OnInit {
                                      Validators.maxLength(10)]);
   verificationCode: string;
   user: string
+  captchaVerified = false
 
-
-  constructor(private win: WindowService) { }
+  constructor(private win: WindowService) {
+    this.verificationCode = '';
+  }
 
   ngOnInit(): void {
     this.windowRef = this.win.windowRef;
-    this.windowRef.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('captchaDiv')
+    this.windowRef.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('captchaDiv', {
+      'callback': (responss) => {
+        this.captchaVerified = true;
+      }
+    });
     this.windowRef.recaptchaVerifier.render()
   }
 
   sendOneTimePass() {
     const appVerifier = this.windowRef.recaptchaVerifier;
-    const num = this.phoneNumber.value;
+    const num = '+91'+this.phoneNumber.value;
     firebase.auth().signInWithPhoneNumber(num, appVerifier).then(result => {
       this.windowRef.confirmationResult = result;
     }).catch (error => console.log(error));
