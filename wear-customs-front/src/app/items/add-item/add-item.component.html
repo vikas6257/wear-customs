@@ -1,5 +1,5 @@
 <section>
-  <div class="" *ngIf="userAuthenticated() else notAuthUser">
+  <div class="" *ngIf="firebaseService.isAuthenticated else notAuthUser">
     <mat-form-field appearance="outline" *ngFor="let info of itemInfoString">
       <mat-label>{{info}}</mat-label>
       <input type="text"

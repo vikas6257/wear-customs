@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from "../../core/auth.service";
 import {FormControl, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
@@ -11,6 +10,7 @@ import {
   AngularFirestoreDocument
 } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire';
+import { FirebaseService } from "../../firebase.service";
 
 class Photo {
   photoFormControl: FormControl;
@@ -86,7 +86,6 @@ export class AddItemComponent implements OnInit {
 
   item: ItemInfo
   filteredOptions: Observable<string[]>;
-  private afs: AngularFirestore
 
   genderOptions = ['M', 'F', 'Kids']
   main_type = ['Innerwears', 'Tshirts', 'Pants']
@@ -94,10 +93,7 @@ export class AddItemComponent implements OnInit {
                 'price', 'description']
   photoUploadPercentage: number
 
-  constructor(
-    private auth: AuthService
-    // private storage: AngularFireStorage
-  ) {
+  constructor(public firebaseService: FirebaseService) {
     this.item = new ItemInfo();
   }
 
@@ -112,10 +108,6 @@ export class AddItemComponent implements OnInit {
     const filterValue = value.toLowerCase();
 
     return this.main_type.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
-  }
-
-  userAuthenticated() {
-    return this.auth.authenticated;
   }
 
   uploadImage(event) {
@@ -134,17 +126,17 @@ export class AddItemComponent implements OnInit {
       environment.firebaseConfig.storagePath+'item_photos/'+this.item.pic.name);
     console.log(firebase);
 
-    var firestore = this.afs;
+    var firestore = this.firebaseService.getFireStore();
     console.log(firestore);
 
-    const docRef = firestore.doc(this.item.gender + '/' +this.item.mainType + '/' +
-                                 this.item.subType);
+    const docRef = firestore.collection(this.item.gender.value).doc(this.item.mainType.value).
+                                 collection(this.item.subType.value).doc();
     docRef.set({
-      company: this.item.company,
-      size: this.item.size,
-      color: this.item.color,
-      price: this.item.price,
-      description: this.item.description,
+      company: this.item.company.value,
+      size: this.item.size.value,
+      color: this.item.color.value,
+      price: this.item.price.value,
+      description: this.item.description.value,
       pic: this.item.pic
     }).then(function() {
       console.log('data saved');
@@ -176,8 +168,11 @@ export class AddItemComponent implements OnInit {
 
             function complete(this) {
               console.log('Upload completed');
-
-              this.dbAddData();
+              task.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                console.log('URL download complete');
+                this.item.pic = downloadURL;
+                this.dbAddData();
+              });
             }.bind(this)
     );
   }

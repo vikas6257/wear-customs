@@ -16,7 +16,7 @@
     <button mat-button mat-fab color="primary">
       <mat-icon>shopping_cart</mat-icon>
     </button>
-    <div *ngIf="auth.afAuth.authState | async as user; else showLogin">
+    <div *ngIf="auth.authState else showLogin">
       <!-- <span>Hello {{user.displayName}}!</span> -->
       <button mat-button color="accent">
         <mat-icon>person</mat-icon>
@@ -32,7 +32,7 @@
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="auth.logout()" *ngIf="auth.afAuth.authState | async">
+      <button mat-menu-item (click)="auth.logOut()" *ngIf="auth.authState">
         <mat-icon>logout</mat-icon>
         <span>Logout</span>
       </button>

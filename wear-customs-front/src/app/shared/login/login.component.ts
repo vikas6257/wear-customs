@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import firebase from "firebase/app";
 import { WindowService } from "../../core/window.service";
 import { SharedModule } from "../shared.module";
 import {FormControl, Validators} from '@angular/forms';
+import { FirebaseService } from '../../firebase.service'
 
 @Component({
   selector: 'app-login',
@@ -19,27 +19,23 @@ export class LoginComponent implements OnInit {
   user: string
   captchaVerified = false
 
-  constructor(private win: WindowService) {
+  constructor(private win: WindowService,
+    private firebaseService: FirebaseService
+  ) {
     this.verificationCode = '';
     this.user = ''
   }
 
   ngOnInit(): void {
     this.windowRef = this.win.windowRef;
-    this.windowRef.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('captchaDiv', {
-      'callback': (response) => {
-        this.captchaVerified = true;
-      }
-    });
+    this.windowRef.recaptchaVerifier = this.firebaseService.getCaptchaVerifier()
     this.windowRef.recaptchaVerifier.render()
   }
 
   sendOneTimePass() {
     const appVerifier = this.windowRef.recaptchaVerifier;
     const num = '+91'+this.phoneNumber.value;
-    firebase.auth().signInWithPhoneNumber(num, appVerifier).then(result => {
-      this.windowRef.confirmationResult = result;
-    }).catch (error => console.log(error));
+    this.firebaseService.signInWithPhoneNumber(num, appVerifier)
   }
 
   verifyOneTimePass() {

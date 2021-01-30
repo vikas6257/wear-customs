@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from "../../core/auth.service";
 import {ThemePalette} from '@angular/material/core';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { LoginComponent } from "../login/login.component";
+import { FirebaseService } from "../../firebase.service";
 
 @Component({
   selector: 'app-header',
@@ -11,8 +11,8 @@ import { LoginComponent } from "../login/login.component";
 })
 export class HeaderComponent implements OnInit {
   constructor(
-    public auth: AuthService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public auth: FirebaseService
   ) { }
 
   ngOnInit(): void {
@@ -20,7 +20,6 @@ export class HeaderComponent implements OnInit {
 
   openLoginDialog() {
     const dialogRef = this.dialog.open(LoginComponent);
-    // this.auth.login()
   }
 
   contactAlert() {

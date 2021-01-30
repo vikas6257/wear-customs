@@ -8,7 +8,6 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from "../environments/environment";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { ItemTypesComponent } from './items/item-types/item-types.component';
 import { AddItemComponent } from "./items/add-item/add-item.component";
@@ -27,11 +26,9 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
-    AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireStorageModule,
     AngularFireAuthModule,
     BrowserAnimationsModule,
-    CoreModule,
     SharedModule,
     AppRoutingModule,
     ItemsModule
