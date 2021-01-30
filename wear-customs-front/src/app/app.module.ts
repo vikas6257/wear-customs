@@ -10,24 +10,22 @@ import { environment } from "../environments/environment";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
-import { ItemCardComponent } from './item-card/item-card.component';
+import { ItemTypesComponent } from './items/item-types/item-types.component';
 import { AddItemComponent } from "./items/add-item/add-item.component";
 import { ItemsModule } from "./items/items.module";
 
 const routes: Routes = [
   {path: 'add-item', component: AddItemComponent},
-  {path: 'men_women_kids', component: ItemCardComponent},
+  {path: 'men_women_kids', component: ItemTypesComponent},
   {path: '', redirectTo: '/men_women_kids', pathMatch: 'full'}
 ]
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ItemCardComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    // FormsModule,
     RouterModule.forRoot(routes),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireStorageModule,

@@ -5,3 +5,15 @@ section {
 mat-form-field {
   width: 100%
 }
+
+.upload_image > input {
+  display: none;
+}
+.upload_image mat-icon {
+  cursor: pointer;
+}
+
+.itemSubmitButton {
+  margin-left: 40%;
+  margin-top: 10px;
+}

@@ -21,12 +21,13 @@ export class LoginComponent implements OnInit {
 
   constructor(private win: WindowService) {
     this.verificationCode = '';
+    this.user = ''
   }
 
   ngOnInit(): void {
     this.windowRef = this.win.windowRef;
     this.windowRef.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('captchaDiv', {
-      'callback': (responss) => {
+      'callback': (response) => {
         this.captchaVerified = true;
       }
     });
@@ -44,6 +45,7 @@ export class LoginComponent implements OnInit {
   verifyOneTimePass() {
     this.windowRef.confirmationResult.confirm(this.verificationCode).then(result => {
       this.user = result.user;
+      console.log(result.user);
     }).catch(error => console.log(error));
   }
 

@@ -12,7 +12,8 @@ export const environment = {
     storageBucket: "wear-customs.appspot.com",
     messagingSenderId: "33197746472",
     appId: "1:33197746472:web:b05f842ef009efd316881d",
-    measurementId: "G-GLRR8G7X65"
+    measurementId: "G-GLRR8G7X65",
+    storagePath: "PostsTesting"
   }
 };
 

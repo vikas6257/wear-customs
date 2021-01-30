@@ -1,8 +1,39 @@
 <section>
-  <mat-accordion *ngIf="userAuthenticated() else notAuthUser">
-    <span>You are authenticated</span>
-  </mat-accordion>
+  <div class="" *ngIf="userAuthenticated() else notAuthUser">
+    <mat-form-field appearance="outline" *ngFor="let info of itemInfoString">
+      <mat-label>{{info}}</mat-label>
+      <input type="text"
+             placeholder="Pick one"
+             aria-label="String"
+             matInput
+             [formControl]="item.getFormControl(info)"
+             [matAutocomplete]="auto">
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <div class="upload_image">
+      <label for="thumbnail-image">
+        <mat-icon>photo</mat-icon>
+      </label>
+      <input type="file" id="thumbnail-image" (change)="uploadImage($event)" required>
+      <p *ngIf="item.pic">Loaded file: {{item.pic.name}}</p>
+      <mat-card>
+        <mat-card-content>
+          <mat-progress-bar color="primary" mode="determinate"
+                            [value]="photoUploadPercentage"
+          >
+          </mat-progress-bar>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <button class="itemSubmitButton" mat-raised-button (click)=submitItem() [disabled]="!item.isValid()">Submit</button>
+  </div>
+
   <ng-template #notAuthUser>
-    <p><mat-icon>help_outline</mat-icon> Please login to write a post.</p>
+    <p><mat-icon>help_outline</mat-icon> Not Authorised</p>
   </ng-template>
 </section>

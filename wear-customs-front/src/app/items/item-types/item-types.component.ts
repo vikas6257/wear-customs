@@ -6,8 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./item-types.component.css']
 })
 export class ItemTypesComponent implements OnInit {
+  numbers: any
 
-  constructor() { }
+  constructor() {
+    this.numbers = Array(100).fill(0).map((x,i)=>i);
+  }
 
   ngOnInit(): void {
   }

@@ -10,9 +10,17 @@
     <button mat-button color="primary">Women</button>
     <button mat-button color="primary">Kids</button>
 
+    <!-- <h1>Wear Customs</h1> -->
+
     <span class="spacer"></span>
+    <button mat-button mat-fab color="primary">
+      <mat-icon>shopping_cart</mat-icon>
+    </button>
     <div *ngIf="auth.afAuth.authState | async as user; else showLogin">
-      <span>Hello {{user.displayName}}!</span>
+      <!-- <span>Hello {{user.displayName}}!</span> -->
+      <button mat-button color="accent">
+        <mat-icon>person</mat-icon>
+      </button>
     </div>
     <ng-template #showLogin>
       <button mat-button (click)="openLoginDialog()">
